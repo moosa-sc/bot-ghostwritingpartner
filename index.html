@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Groton Technologies - Digital Solutions for Your Business</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    header p {
+      font-size: 1.2em;
+      margin: 10px 0;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #28a745;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .cta-button:hover {
+      background: #218838;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .service-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .service-card h3 {
+      margin-top: 0;
+      color: #007bff;
+    }
+
+    footer {
+      background: #343a40;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+
+    footer a {
+      color: #28a745;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Chat Widget Styles */
+    #chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #007bff;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      font-size: 30px;
+      text-align: center;
+      line-height: 60px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    #chat-container {
+      position: fixed;
+      bottom: 90px;
+      left: 20px;
+      width: 340px;
+      height: 450px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 999;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+    }
+
+    #chat-header {
+      background: #007bff;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    #chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      font-size: 14px;
+      background: #f8f9fa;
+    }
+
+    #chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+      background: white;
+    }
+
+    #chat-input input {
+      flex: 1;
+      border: none;
+      padding: 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    #chat-input button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 0 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    #chat-input button:hover {
+      background: #0056b3;
+    }
+
+    .msg-user, .msg-bot {
+      margin: 8px 0;
+      padding: 10px 14px;
+      border-radius: 10px;
+      max-width: 85%;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+
+    .msg-user {
+      margin-left: auto;
+      background-color: #007bff;
+      color: white;
+    }
+
+    .msg-bot {
+      margin-right: auto;
+      background-color: #e9ecef;
+      color: #333;
+      text-align: left;
+    }
+
+    .msg-bot h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: #007bff;
+    }
+
+    .msg-bot ul {
+      margin: 8px 0;
+      padding-left: 20px;
+      list-style-type: disc;
+    }
+
+    .msg-bot li {
+      margin-bottom: 6px;
+    }
+
+    .msg-bot li ul {
+      padding-left: 30px;
+      list-style-type: circle;
+    }
+
+    /* Scrollbar Styling */
+    #chat-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    #chat-messages::-webkit-scrollbar-thumb {
+      background: #007bff;
+      border-radius: 3px;
+    }
+
+    #chat-messages::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    .typing-ellipsis::after {
+  content: '';
+  display: inline-block;
+  animation: ellipsis steps(4, end) 1.2s infinite;
+  width: 1.2em;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+@keyframes ellipsis {
+  0%   { content: ''; }
+  25%  { content: '.'; }
+  50%  { content: '..'; }
+  75%  { content: '...'; }
+  100% { content: ''; }
+}
+
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <h1>Groton Technologies</h1>
+  <p>Unlock Your Business Potential with Cutting-Edge Digital Solutions</p>
+  <a href="#contact" class="cta-button">Get Started Now</a>
+</header>
+
+<!-- Services Section -->
+<section id="services">
+  <h2>Our Services</h2>
+  <p>At Groton Technologies, we provide professional digital solutions to skyrocket your business.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <h3>Website Development</h3>
+      <p>Custom websites designed to streamline sales, marketing, and digital services, driving growth engagement.</p>
+    </div>
+    <div class="service-card">
+      <h3>Digital Marketing</h3>
+      <p>SEO, PPC, and social media strategies to boost your online presence and connect with your audience.</p>
+    </div>
+    <div class="service-card">
+      <h3>Branding</h3>
+      <p>Create a memorable brand identity with logo design, motion graphics, and stationery design.</p>
+    </div>
+    <div class="service-card">
+      <h3>App Design</h3>
+      <p>Innovative mobile app solutions tailored to enhance user experience and business functionality.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+  <h2>Contact Us</h2>
+  <p>Ready to take your business to the next level? Chat with us or reach out directly!</p>
+  <p>Email: <a href="mailto:info@grotontechnologies.com">info@grotontechnologies.com</a></p>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 Groton Technologies. All rights reserved.</p>
+  <p><a href="/privacy-policy">Privacy Policy</a> | <a href="/terms">Terms of Service</a> | <a href="/refunds">Refund Policy</a></p>
+</footer>
+
+<!-- Floating Chat Button -->
+<div id="chat-toggle">💬</div>
+
+<!-- Chat Container -->
+<div id="chat-container">
+  <div id="chat-header">Chat with Groton Technologies</div>
+  <div id="chat-messages"></div>
+  <div id="chat-input">
+    <input type="text" id="user-input" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+  const chatToggle = document.getElementById('chat-toggle');
+  const chatContainer = document.getElementById('chat-container');
+  const chatMessages = document.getElementById('chat-messages');
+  const inputField = document.getElementById('user-input');
+
+  const webhookBaseUrl = 'https://databosaa.app.n8n.cloud/webhook/f22b5848-6722-45fb-ba0c-b874f5813b5c';
+
+  chatToggle.onclick = () => {
+    chatContainer.style.display = chatContainer.style.display === 'none' ? 'flex' : 'none';
+  };
+
+  function getUserId() {
+    let userId = localStorage.getItem('chatUserId');
+    if (!userId) {
+      userId = 'user_' + Math.random().toString(36).substring(2, 12);
+      localStorage.setItem('chatUserId', userId);
+    }
+    return userId;
+  }
+
+  function formatBotResponse(response) {
+  // Remove garbage characters at the beginning
+  response = response.replace(/^[^\w<]+/, '');
+
+  // Remove trailing email signature
+  response = response.replace(/—\s*\w+$/, '');
+
+  // Headings (### Heading)
+  response = response.replace(/^###\s*(.+)$/gm, '<h3>$1</h3>');
+
+  // Bold (**text**)
+  response = response.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+  // Links: [text](url)
+  response = response.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+  // Convert numbered list items
+  response = response.replace(/(^|\n)\d+\.\s+(.*?)(?=\n|$)/g, '\n<li>$2</li>');
+  response = response.replace(/(<li>.*<\/li>)/gs, match => `<ol>${match}</ol>`); // Fix here: wrap group, not each
+
+  // Convert bullet list items
+  response = response.replace(/(^|\n)-\s+(.*?)(?=\n|$)/g, '\n<li>$2</li>');
+  response = response.replace(/(<li>.*<\/li>)/gs, match => `<ul>${match}</ul>`); // Fix here: wrap group, not each
+
+  // Collapse multiple newlines and replace remaining with <br>
+  response = response.replace(/\n{2,}/g, '<br><br>');
+  response = response.replace(/\n/g, '<br>');
+
+  return response.trim();
+}
+
+
+
+
+  async function sendMessage() {
+    const message = inputField.value.trim();
+    if (!message) return;
+
+    // Show user message
+    chatMessages.innerHTML += `<div class="msg-user">${message}</div>`;
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    inputField.value = '';
+
+    const userId = getUserId();
+    const encodedMessage = encodeURIComponent(message);
+    const url = `${webhookBaseUrl}?query=${encodedMessage}&userId=${encodeURIComponent(userId)}&site=${encodeURIComponent('ghostwritingpartner')}`;
+
+    // Add loading message
+    const loadingMsg = document.createElement('div');
+    loadingMsg.className = 'msg-bot';
+    loadingMsg.innerHTML = `<em class="typing-ellipsis">John is typing</em>`;
+    chatMessages.appendChild(loadingMsg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 300000);
+
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeout);
+
+      const data = await response.json();
+      let reply = data.answer || data.message || 'No response.';
+      reply = formatBotResponse(reply);
+      loadingMsg.innerHTML = `${reply}`;
+    } catch (error) {
+      loadingMsg.innerHTML = `<span style="color: red;">Error or timeout contacting server.</span>`;
+    }
+
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  inputField.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") sendMessage();
+  });
+</script>
+
+</body>
+</html>
