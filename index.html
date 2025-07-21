@@ -137,6 +137,7 @@
       font-size: 14px;
       background: #f8f9fa;
     }
+    
 
     #chat-input {
       display: flex;
@@ -237,6 +238,27 @@
   75%  { content: '...'; }
   100% { content: ''; }
 }
+#chat-hint {
+  position: fixed;
+  bottom: 90px;
+  left: 90px;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px 14px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 1000;
+  font-size: 14px;
+  color: #333;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+#chat-hint.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
   </style>
 </head>
@@ -288,6 +310,8 @@
 
 <!-- Floating Chat Button -->
 <div id="chat-toggle">💬</div>
+  <div id="chat-hint">👋 Hello there! How may I assist you today?</div>
+
 
 <!-- Chat Container -->
 <div id="chat-container">
@@ -395,6 +419,23 @@
   inputField.addEventListener("keypress", function(e) {
     if (e.key === "Enter") sendMessage();
   });
+  // Show welcome message
+window.addEventListener('load', () => {
+  const hint = document.getElementById('chat-hint');
+  hint.classList.add('show');
+
+  // Hide after 5 seconds
+  setTimeout(() => {
+    hint.classList.remove('show');
+  }, 5000);
+});
+
+// Hide instantly if user opens chat
+chatToggle.addEventListener('click', () => {
+  const hint = document.getElementById('chat-hint');
+  hint.classList.remove('show');
+});
+
 </script>
 
 </body>
